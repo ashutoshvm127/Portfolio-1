@@ -59,7 +59,7 @@ export async function submitContactForm(formData: FormData) {
 
       const response = await resend.emails.send({
         from: "portfolio@amithaaji.live",
-        to: ["amithaaji24@gmail.com"], // Update to match the verified email
+        to: ["wbup2003@gmail.com"], // Update to match the verified email
         subject: `New Contact Form Message: ${validatedData.subject}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
