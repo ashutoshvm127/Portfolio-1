@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 import { Search, Download, Trash2, Mail, Calendar, User, MessageSquare, BarChart3, LogOut } from "lucide-react"
+import { supabaseAdmin } from "@/utils/supabase-admin"
 import { supabase } from "@/utils/supabase"
 import type { ContactSubmission } from "@/types/database"
 import { checkAdminAuth, logoutAdmin } from "./auth"
@@ -42,28 +43,41 @@ export default function AdminPage() {
 
   const loadData = async () => {
     try {
-      const { data: submissionsData, error } = await supabase
+      const { data: submissionsData, error } = await supabaseAdmin
         .from('contact_submissions')
         .select('*')
         .order('created_at', { ascending: false })
 
-      if (error) throw error
-
-      const statsData = {
-        total: submissionsData?.length || 0,
-        thisMonth: submissionsData?.filter(s => 
-          new Date(s.created_at) >= new Date(new Date().setDate(1))
-        ).length || 0,
-        thisWeek: submissionsData?.filter(s => 
-          new Date(s.created_at) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-        ).length || 0,
-        today: submissionsData?.filter(s => 
-          new Date(s.created_at).toDateString() === new Date().toDateString()
-        ).length || 0,
+      if (error) {
+        console.error('Supabase error:', error)
+        throw error
       }
 
-      setSubmissions(submissionsData || [])
-      setFilteredSubmissions(submissionsData || [])
+      if (!submissionsData) {
+        console.log('No data returned from Supabase')
+        setSubmissions([])
+        setFilteredSubmissions([])
+        setStats({ total: 0, thisMonth: 0, thisWeek: 0, today: 0 })
+        return
+      }
+
+      console.log('Fetched submissions:', submissionsData.length)
+
+      const statsData = {
+        total: submissionsData.length,
+        thisMonth: submissionsData.filter(s => 
+          new Date(s.created_at) >= new Date(new Date().setDate(1))
+        ).length,
+        thisWeek: submissionsData.filter(s => 
+          new Date(s.created_at) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        ).length,
+        today: submissionsData.filter(s => 
+          new Date(s.created_at).toDateString() === new Date().toDateString()
+        ).length,
+      }
+
+      setSubmissions(submissionsData)
+      setFilteredSubmissions(submissionsData)
       setStats(statsData)
     } catch (error) {
       console.error("Error loading data:", error)
@@ -73,26 +87,33 @@ export default function AdminPage() {
   }
 
   const handleDelete = async (id: number) => {
-    if (confirm("Are you sure you want to delete this submission?")) {
-      const { error } = await supabase
+    if (!confirm("Are you sure you want to delete this submission?")) return
+
+    try {
+      const { error } = await supabaseAdmin
         .from('contact_submissions')
         .delete()
         .eq('id', id)
 
-      if (!error) {
-        await loadData()
+      if (error) {
+        console.error('Delete error:', error)
+        return
       }
+
+      await loadData()
+    } catch (error) {
+      console.error("Delete error:", error)
     }
   }
 
   const handleExport = async () => {
     try {
-      const { data } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('contact_submissions')
         .select('*')
         .order('created_at', { ascending: false })
 
-      if (!data) return
+      if (error) throw error
 
       const csvData = [
         ['ID', 'Name', 'Email', 'Message', 'Created At'].join(','),
