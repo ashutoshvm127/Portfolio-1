@@ -7,14 +7,8 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 import { Search, Download, Trash2, Mail, Calendar, User, MessageSquare, BarChart3, LogOut } from "lucide-react"
-import {
-  getAllContactSubmissions,
-  searchContactSubmissions,
-  deleteContactSubmission,
-  getContactStats,
-  exportContactDataAsCSV,
-  type ContactSubmission,
-} from "../data"
+import { supabase } from "@/utils/supabase"
+import type { ContactSubmission } from "@/types/database"
 import { checkAdminAuth, logoutAdmin } from "./auth"
 
 export default function AdminPage() {
@@ -46,19 +40,30 @@ export default function AdminPage() {
     checkAuth()
   }, [])
 
-  useEffect(() => {
-    if (searchQuery.trim()) {
-      searchContactSubmissions(searchQuery).then(setFilteredSubmissions)
-    } else {
-      setFilteredSubmissions(submissions)
-    }
-  }, [searchQuery, submissions])
-
   const loadData = async () => {
     try {
-      const [submissionsData, statsData] = await Promise.all([getAllContactSubmissions(), getContactStats()])
-      setSubmissions(submissionsData)
-      setFilteredSubmissions(submissionsData)
+      const { data: submissionsData, error } = await supabase
+        .from('contact_submissions')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+
+      const statsData = {
+        total: submissionsData?.length || 0,
+        thisMonth: submissionsData?.filter(s => 
+          new Date(s.created_at) >= new Date(new Date().setDate(1))
+        ).length || 0,
+        thisWeek: submissionsData?.filter(s => 
+          new Date(s.created_at) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        ).length || 0,
+        today: submissionsData?.filter(s => 
+          new Date(s.created_at).toDateString() === new Date().toDateString()
+        ).length || 0,
+      }
+
+      setSubmissions(submissionsData || [])
+      setFilteredSubmissions(submissionsData || [])
       setStats(statsData)
     } catch (error) {
       console.error("Error loading data:", error)
@@ -67,18 +72,39 @@ export default function AdminPage() {
     }
   }
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     if (confirm("Are you sure you want to delete this submission?")) {
-      const success = await deleteContactSubmission(id)
-      if (success) {
-        await loadData() // Reload data
+      const { error } = await supabase
+        .from('contact_submissions')
+        .delete()
+        .eq('id', id)
+
+      if (!error) {
+        await loadData()
       }
     }
   }
 
   const handleExport = async () => {
     try {
-      const csvData = await exportContactDataAsCSV()
+      const { data } = await supabase
+        .from('contact_submissions')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (!data) return
+
+      const csvData = [
+        ['ID', 'Name', 'Email', 'Message', 'Created At'].join(','),
+        ...data.map(item => [
+          item.id,
+          item.name,
+          item.email,
+          `"${item.message.replace(/"/g, '""')}"`,
+          item.created_at
+        ].join(','))
+      ].join('\n')
+
       const blob = new Blob([csvData], { type: "text/csv" })
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement("a")
@@ -90,6 +116,22 @@ export default function AdminPage() {
       console.error("Error exporting data:", error)
     }
   }
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      const filtered = submissions.filter(submission => {
+        return (
+          (submission?.name ?? '').toLowerCase().includes(query) ||
+          (submission?.email ?? '').toLowerCase().includes(query) ||
+          (submission?.message ?? '').toLowerCase().includes(query)
+        )
+      })
+      setFilteredSubmissions(filtered)
+    } else {
+      setFilteredSubmissions(submissions)
+    }
+  }, [searchQuery, submissions])
 
   if (loading || !isAuthenticated) {
     return (
@@ -203,16 +245,19 @@ export default function AdminPage() {
                       <div className="flex-1">
                         <CardTitle className="text-white flex items-center gap-2">
                           <User className="w-4 h-4" />
-                          {submission.firstName} {submission.lastName}
+                          {submission.name || 'Anonymous'}
                         </CardTitle>
                         <CardDescription className="flex items-center gap-4 mt-2">
                           <span className="flex items-center gap-1">
                             <Mail className="w-3 h-3" />
-                            {submission.email}
+                            {submission.email || 'No email'}
                           </span>
                           <span className="flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
-                            {new Date(submission.timestamp).toLocaleDateString()}
+                            {submission.created_at ? 
+                              new Date(submission.created_at).toLocaleDateString() : 
+                              'No date'
+                            }
                           </span>
                         </CardDescription>
                       </div>
@@ -228,16 +273,17 @@ export default function AdminPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div>
-                        <Badge variant="outline" className="border-blue-500/50 text-blue-400 mb-2">
-                          {submission.subject}
-                        </Badge>
-                      </div>
                       <div className="bg-gray-900/50 p-4 rounded-lg">
-                        <p className="text-gray-300 whitespace-pre-wrap">{submission.message}</p>
+                        <p className="text-gray-300 whitespace-pre-wrap">
+                          {submission.message || 'No message provided'}
+                        </p>
                       </div>
                       <div className="text-xs text-gray-500">
-                        ID: {submission.id} • {new Date(submission.timestamp).toLocaleString()}
+                        ID: {submission.id} • {
+                          submission.created_at ? 
+                          new Date(submission.created_at).toLocaleString() : 
+                          'No date'
+                        }
                       </div>
                     </div>
                   </CardContent>

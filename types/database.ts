@@ -1,11 +1,9 @@
 export interface ContactSubmission {
   id: number
+  name?: string
+  email?: string
+  message?: string
   created_at: string
-  first_name: string
-  last_name: string
-  email: string
-  subject: string
-  message: string
 }
 
 export type ContactSubmissionInsert = Omit<ContactSubmission, 'id' | 'created_at'>
