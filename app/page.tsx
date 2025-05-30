@@ -288,27 +288,27 @@ export default function Portfolio() {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution with React, Node.js, and MongoDB",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      image: "/placeholder.svg?height=200&width=300",
-      github: "https://github.com/yourusername/project1",
-      live: "#",
+      title: "Bill Generator",
+      description: "A python made bill genarator that allows users to create and manage bills with ease, part of a large project",
+      tech: ["Python"],
+      image: "/projects/billmaker.png",
+      github: "https://github.com/amithaaji/Bill-Maker",
+      // live: "#",
     },
     {
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates",
-      tech: ["Next.js", "Socket.io", "PostgreSQL", "Tailwind"],
-      image: "/placeholder.svg?height=200&width=300",
-      github: "#",
-      live: "#",
+      title: "Umberla Warning ⚠️ ",
+      description: "An under dev machine learning project that predicts the weather and gives warning to the user",
+      tech: ["python", "Machine Learning", "Flask"],
+      image: "/projects/weather.jpeg",
+      github: "https://github.com/amithaaji/Umberlla-Warning",
+      // live: "#",
     },
     {
-      title: "Weather Dashboard",
-      description: "A responsive weather dashboard with location-based forecasts",
-      tech: ["Vue.js", "OpenWeather API", "Chart.js"],
-      image: "/placeholder.svg?height=200&width=300",
-      github: "#",
+      title: "E-commerce Website (clone)",
+      description: "A clone of an e-commerce website that allows users to browse products, add them to a cart.",
+      tech: ["React", "Next.js", "Tailwind CSS", "Node.js", "MongoDB"],
+      image: "/projects/ecomerce.jpg",
+      github: "https://github.com/amithaaji/Ecomerce",
       live: "#",
     },
   ]
@@ -402,13 +402,10 @@ export default function Portfolio() {
     "TypeScript",
     "React",
     "Next.js",
-    "Vue.js",
-    "Node.js",
     "Python",
-    "MongoDB",
-    "PostgreSQL",
-    "AWS",
-    "Docker",
+    "Node.js",
+    "java",
+    "c",
     "Git",
   ]
 
@@ -1142,15 +1139,26 @@ setting and gain valuable industry experience.
             viewport={{ once: true }}
           >
             {[
-              { icon: Code, title: "Frontend", desc: "React, Vue, Angular", color: "from-gray-600 to-gray-800" },
+              { icon: Code, 
+                title: "Frontend", 
+                desc: "React, Node, Tailwind CSS, Next", 
+                color: "from-gray-600 to-gray-800" },
               {
                 icon: Smartphone,
                 title: "Backend",
-                desc: "Node.js, Python, PHP",
+                desc: "Node.js, Python, SQL, Supabase",
                 color: "from-gray-700 to-gray-900",
               },
-              { icon: Palette, title: "Design", desc: "Figma, Adobe XD", color: "from-gray-500 to-gray-700" },
-              { icon: Award, title: "DevOps", desc: "AWS, Docker, CI/CD", color: "from-gray-800 to-black" },
+              { icon: Palette, 
+                title: "Design", 
+                desc: "Canva", 
+                color: "from-gray-500 to-gray-700" 
+              },
+              { icon: Award, 
+                title: "DevOps", 
+                desc: "AWS", 
+                color: "from-gray-800 to-black"
+              },
             ].map((item, index) => (
               <motion.div
                 key={item.title}
