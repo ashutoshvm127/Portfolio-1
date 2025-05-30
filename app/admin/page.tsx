@@ -16,23 +16,34 @@ import {
   type ContactSubmission,
 } from "../data"
 import { checkAdminAuth, logoutAdmin } from "./auth"
-import { redirect } from "next/navigation"
 
-export default async function AdminPage() {
-  const isAuthenticated = await checkAdminAuth()
-
-  if (!isAuthenticated) {
-    redirect("/admin/login")
-  }
-
+export default function AdminPage() {
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([])
   const [filteredSubmissions, setFilteredSubmissions] = useState<ContactSubmission[]>([])
   const [searchQuery, setSearchQuery] = useState("")
   const [stats, setStats] = useState({ total: 0, thisMonth: 0, thisWeek: 0, today: 0 })
   const [loading, setLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    loadData()
+    const checkAuth = async () => {
+      try {
+        const authStatus = await checkAdminAuth()
+        if (!authStatus) {
+          window.location.href = "/admin/login"
+          return
+        }
+        setIsAuthenticated(true)
+        await loadData()
+      } catch (error) {
+        console.error("Auth check failed:", error)
+        window.location.href = "/admin/login"
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    checkAuth()
   }, [])
 
   useEffect(() => {
@@ -80,13 +91,13 @@ export default async function AdminPage() {
     }
   }
 
-  if (loading) {
+  if (loading || !isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
         <motion.div
           className="text-white text-xl"
           animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+          transition={{ duration: 1.5, repeat: Infinity }}
         >
           Loading admin panel...
         </motion.div>
