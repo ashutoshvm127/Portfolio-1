@@ -257,7 +257,8 @@ function ContactForm() {
 
 function seededRandom(seed: number) {
   const x = Math.sin(seed++) * 10000;
-  return x - Math.floor(x);
+  // Round to 4 decimal places for consistent values between server and client
+  return Number((x - Math.floor(x)).toFixed(4));
 }
 
 export default function Portfolio() {
@@ -477,8 +478,9 @@ export default function Portfolio() {
 
         {/* Floating Particles */}
         {Array.from({ length: 50 }).map((_, i) => {
-          const left = seededRandom(i) * 100;
-          const top = seededRandom(i + 50) * 100;
+          // Round positioning values to avoid hydration mismatches
+          const left = (seededRandom(i) * 100).toFixed(4);
+          const top = (seededRandom(i + 50) * 100).toFixed(4);
           
           return (
             <motion.div
@@ -1499,7 +1501,6 @@ setting and gain valuable industry experience.
                     whileTap={{ scale: 0.9 }}
                   >
                     <Github className="w-5 h-5" />
-                    <span className="sr-only">GitHub</span>
                   </motion.a>
                   <motion.a
                     href="https://www.linkedin.com/in/amitha-aji-0850972bb"
@@ -1510,7 +1511,6 @@ setting and gain valuable industry experience.
                     whileTap={{ scale: 0.9 }}
                   >
                     <Linkedin className="w-5 h-5" />
-                    <span className="sr-only">LinkedIn</span>
                   </motion.a>
                   <motion.a
                     href="https://www.instagram.com/a.mith.a"
@@ -1521,7 +1521,6 @@ setting and gain valuable industry experience.
                     whileTap={{ scale: 0.9 }}
                   >
                     <Instagram className="w-5 h-5" />
-                    <span className="sr-only">Instagram</span>
                   </motion.a>
                 </div>
               </div>
