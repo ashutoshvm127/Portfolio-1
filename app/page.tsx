@@ -290,7 +290,7 @@ export default function Portfolio() {
       description: "A full-stack e-commerce solution with React, Node.js, and MongoDB",
       tech: ["React", "Node.js", "MongoDB", "Stripe"],
       image: "/placeholder.svg?height=200&width=300",
-      github: "#",
+      github: "https://github.com/yourusername/project1",
       live: "#",
     },
     {
@@ -313,86 +313,86 @@ export default function Portfolio() {
 
   const certifications = [
     {
-      title: "AWS Certified Developer",
-      issuer: "Amazon Web Services",
-      date: "2024",
+      title: "Demystifying Networking",
+      issuer: "NPTEL",
+      date: "2025",
       icon: <Award className="w-6 h-6" />,
-      image: "/certificates/aws-cert.png",
-      pdf: "/certificates/aws-cert.pdf",
+      image: "/certificates/Demystifying.jpg",
+      pdf: "/certificates/Demystifying Networking.pdf",
     },
     {
-      title: "React Developer Certification",
-      issuer: "Meta",
-      date: "2023",
+      title: "Python Djnago Internship",
+      issuer: "Facein",
+      date: "2024",
       icon: <Code className="w-6 h-6" />,
-      image: "/certificates/react-cert.png",
-      pdf: "/certificates/react-cert.pdf",
+      image: "/certificates/Facein.jpg",
+      pdf: "/certificates/Internship.pdf",
     },
     {
-      title: "Google UX Design Certificate",
-      issuer: "Google",
-      date: "2023",
-      icon: <Palette className="w-6 h-6" />,
-      image: "/certificates/ux-cert.png",
-      pdf: "/certificates/ux-cert.pdf",
+      title: "Networking fundamentals",
+      issuer: "Infosys",
+      date: "2024",
+      icon: <Code className="w-6 h-6" />,
+      image: "/certificates/networking.jpg",
+      pdf: "/certificates/Networking fundamentals.pdf",
     },
     // Additional certificates will be hidden initially
     {
-      title: "Advanced JavaScript",
-      issuer: "Udemy",
-      date: "2023",
+      title: "Statistics Foundations 1 The Basics",
+      issuer: "LinkedIn Learning",
+      date: "2024",
       icon: <Code className="w-6 h-6" />,
-      image: "/certificates/js-cert.png",
-      pdf: "/certificates/js-cert.pdf",
+      image: "/certificates/statistics.jpg",
+      pdf: "/certificates/Statistics Foundations 1 The Basics.pdf",
     },
     {
-      title: "Python Data Science",
-      issuer: "DataCamp",
-      date: "2023",
-      icon: <Code className="w-6 h-6" />,
-      image: "/certificates/python-cert.png",
-      pdf: "/certificates/python-cert.pdf",
-    },
-    {
-      title: "UI/UX Foundation",
-      issuer: "Coursera",
-      date: "2023",
-      icon: <Palette className="w-6 h-6" />,
-      image: "/certificates/uiux-cert.png",
-      pdf: "/certificates/uiux-cert.pdf",
-    },
-    {
-      title: "Cloud Architecture",
-      issuer: "Microsoft",
-      date: "2023",
+      title: "IEEE Extreme 24",
+      issuer: "IEEE",
+      date: "2024",
       icon: <Award className="w-6 h-6" />,
-      image: "/certificates/cloud-cert.png",
-      pdf: "/certificates/cloud-cert.pdf",
+      image: "/certificates/IEEE.jpg",
+      pdf: "/certificates/IEEE EXTREME 2024.pdf",
     },
-    {
-      title: "Docker Mastery",
-      issuer: "Udemy",
-      date: "2023",
-      icon: <Code className="w-6 h-6" />,
-      image: "/certificates/docker-cert.png",
-      pdf: "/certificates/docker-cert.pdf",
-    },
-    {
-      title: "Data Analysis with Python",
-      issuer: "Coursera",
-      date: "2023",
-      icon: <Code className="w-6 h-6" />,
-      image: "/certificates/data-analysis-cert.png",
-      pdf: "/certificates/data-analysis-cert.pdf",
-    },
-    {
-      title: "Machine Learning A-Z",
-      issuer: "Udemy",
-      date: "2023",
-      icon: <Lightbulb className="w-6 h-6" />,
-      image: "/certificates/machine-learning-cert.png",
-      pdf: "/certificates/machine-learning-cert.pdf",
-    },
+    // {
+    //   title: "UI/UX Foundation",
+    //   issuer: "Coursera",
+    //   date: "2023",
+    //   icon: <Palette className="w-6 h-6" />,
+    //   image: "/certificates/uiux-cert.png",
+    //   pdf: "/certificates/uiux-cert.pdf",
+    // },
+    // {
+    //   title: "Cloud Architecture",
+    //   issuer: "Microsoft",
+    //   date: "2023",
+    //   icon: <Award className="w-6 h-6" />,
+    //   image: "/certificates/cloud-cert.png",
+    //   pdf: "/certificates/cloud-cert.pdf",
+    // },
+    // {
+    //   title: "Docker Mastery",
+    //   issuer: "Udemy",
+    //   date: "2023",
+    //   icon: <Code className="w-6 h-6" />,
+    //   image: "/certificates/docker-cert.png",
+    //   pdf: "/certificates/docker-cert.pdf",
+    // },
+    // {
+    //   title: "Data Analysis with Python",
+    //   issuer: "Coursera",
+    //   date: "2023",
+    //   icon: <Code className="w-6 h-6" />,
+    //   image: "/certificates/data-analysis-cert.png",
+    //   pdf: "/certificates/data-analysis-cert.pdf",
+    // },
+    // {
+    //   title: "Machine Learning A-Z",
+    //   issuer: "Udemy",
+    //   date: "2023",
+    //   icon: <Lightbulb className="w-6 h-6" />,
+    //   image: "/certificates/machine-learning-cert.png",
+    //   pdf: "/certificates/machine-learning-cert.pdf",
+    // },
   ]
 
   const skills = [
@@ -682,7 +682,7 @@ export default function Portfolio() {
                     transition={{ delay: 0.9, duration: 0.8 }}
                   >
                     <motion.p className="text-2xl sm:text-3xl text-gray-300 font-light" whileHover={{ scale: 1.02 }}>
-                      Full Stack Developer & UI/UX Designer
+                      Front End Developer 
                     </motion.p>
                     <motion.p
                       className="text-lg text-gray-400 leading-relaxed max-w-2xl"
@@ -739,26 +739,44 @@ export default function Portfolio() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.5, duration: 0.8 }}
                 >
-                  {[
-                    { icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-300" },
-                    { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:text-blue-400" },
-                    { icon: Mail, href: "mailto:amitha@example.com", label: "Email", color: "hover:text-red-400" },
-                    { icon: Instagram, href: "#", label: "Instagram", color: "hover:text-pink-400" },
-                  ].map((social, index) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      className={`p-4 rounded-xl bg-black/50 backdrop-blur-sm border border-gray-700/50 text-gray-400 ${social.color} transition-all duration-300 group`}
-                      whileHover={{ scale: 1.1, y: -5, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 1.7 + index * 0.1 }}
-                    >
-                      <social.icon size={24} />
-                      <span className="sr-only">{social.label}</span>
-                    </motion.a>
-                  ))}
+                  <div className="pt-6 md:pt-8">
+                    <h4 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">Follow Me</h4>
+                    <div className="flex space-x-3 md:space-x-4">
+                      <motion.a
+                        href="https://github.com/amithaaji"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-white transition-colors duration-300 border border-gray-700"
+                        whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Github className="w-5 h-5" />
+                        <span className="sr-only">GitHub</span>
+                      </motion.a>
+                      <motion.a
+                        href="https://www.linkedin.com/in/amitha-aji-0850972bb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-blue-400 transition-colors duration-300 border border-gray-700"
+                        whileHover={{ scale: 1.1, y: -2, rotate: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Linkedin className="w-5 h-5" />
+                        <span className="sr-only">LinkedIn</span>
+                      </motion.a>
+                      <motion.a
+                        href="https://www.instagram.com/a.mith.a"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-pink-400 transition-colors duration-300 border border-gray-700"
+                        whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Instagram className="w-5 h-5" />
+                        <span className="sr-only">Instagram</span>
+                      </motion.a>
+                    </div>
+                  </div>
                 </motion.div>
               </motion.div>
 
@@ -787,7 +805,7 @@ export default function Portfolio() {
                     {/* Profile Section */}
                     <div className="p-6 relative z-10">
                       <motion.div
-                        className="w-full h-40 bg-gradient-to-br from-gray-800/20 to-gray-700/20 rounded-2xl mb-4 flex items-center justify-center relative overflow-hidden border border-gray-700"
+                        className="w-full h-48 bg-gradient-to-br from-gray-800/20 to-gray-700/20 rounded-2xl mb-4 flex items-center justify-center relative overflow-hidden border border-gray-700"
                         whileHover={{ scale: 1.05 }}
                       >
                         <motion.div
@@ -802,9 +820,9 @@ export default function Portfolio() {
                           transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                         />
                         <img
-                          src="/placeholder.svg?height=200&width=200"
+                          src="/profile.jpg"
                           alt="Amitha Aji"
-                          className="w-28 h-28 rounded-full object-cover border-4 border-white/20 relative z-10"
+                          className="w-32 h-32 rounded-full object-cover border-4 border-white/20 relative z-10"
                         />
                       </motion.div>
 
@@ -835,9 +853,9 @@ export default function Portfolio() {
                           transition={{ delay: 1.4 }}
                         >
                           {[
-                            { value: "50+", label: "Projects" },
-                            { value: "3+", label: "Years" },
-                            { value: "100%", label: "Success" },
+                            { value: "4+", label: "Projects" },
+                            { value: "1+", label: "Years" },
+                            // { value: "100%", label: "Success" },
                           ].map((stat, index) => (
                             <motion.div
                               key={stat.label}
@@ -958,13 +976,13 @@ export default function Portfolio() {
             >
               <div className="relative">
                 <motion.div
-                  className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-gray-700"
+                  className="relative w-48 h-80 sm:w-56 sm:h-96 md:w-80 md:h-[28rem] rounded-2xl overflow-hidden border border-gray-700"
                   whileHover={{ scale: 1.02, rotateY: 5 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="w-full h-full bg-gradient-to-br from-black to-gray-900">
                     <img
-                      src="/placeholder.svg?height=320&width=320"
+                      src="/profile.jpg"
                       alt="Amitha Aji"
                       className="w-full h-full object-cover"
                     />
@@ -1020,9 +1038,11 @@ export default function Portfolio() {
                 transition={{ delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                With over 3 years of experience in web development, I specialize in creating responsive, user-friendly
-                applications using modern technologies. My journey started with a curiosity about how websites work, and
-                it has evolved into a passion for crafting digital experiences that make a difference.
+               An enthusiastic and motivated student pursuing a Bachelor's degree in Computer Science
+Engineering with a strong academic background and a passion for technology and software
+development. Seeking an internship opportunity to apply theoretical knowledge in a practical
+setting and gain valuable industry experience.
+
               </motion.p>
               <motion.p
                 className="text-gray-300 text-lg leading-relaxed"
@@ -1031,8 +1051,7 @@ export default function Portfolio() {
                 transition={{ delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-                or sharing my knowledge through blog posts and community events.
+                When I'm not coding, you can find me sharpening my skills in coding competitions, exploring the latest tech trends, or contributing to open-source projects. I believe in continuous learning and am always eager to take on new challenges that push my boundaries.
               </motion.p>
 
               {/* Animated Stats */}
@@ -1044,9 +1063,9 @@ export default function Portfolio() {
                 viewport={{ once: true }}
               >
                 {[
-                  { number: "50+", label: "Projects Completed", icon: Briefcase },
-                  { number: "3+", label: "Years Experience", icon: Award },
-                  { number: "100%", label: "Client Satisfaction", icon: Users },
+                  { number: "4+", label: "Projects Completed", icon: Briefcase },
+                  { number: "1+", label: "Years Experience", icon: Award },
+                  // { number: "100%", label: "Client Satisfaction", icon: Users },
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -1071,7 +1090,7 @@ export default function Portfolio() {
                     >
                       {stat.number}
                     </motion.div>
-                    <div className="text-sm text-gray-400 uppercase tracking-wide">{stat.label}</div>
+                    <div className="text-sm text-gray-400">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
@@ -1188,7 +1207,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-gray-900/30">
+      <section id="projects" className="py-12 sm:py-16 lg:py-20 bg-gray-900/30">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -1210,7 +1229,7 @@ export default function Portfolio() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -1220,46 +1239,19 @@ export default function Portfolio() {
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
               >
-                <Card className="bg-black/50 backdrop-blur-sm border-gray-700 hover:bg-black/70 transition-all duration-300 group relative overflow-hidden">
+                <Card className="bg-black/50 backdrop-blur-sm border-gray-700 hover:bg-black/70 transition-all duration-300 group relative overflow-hidden h-full">
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-gray-800/0 via-gray-800/5 to-gray-700/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     initial={false}
                   />
 
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden h-48 sm:h-56">
                     <motion.img
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                      whileHover={{ scale: 1.1 }}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                    />
-                    <motion.div
-                      className="absolute bottom-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                    >
-                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <Button size="sm" variant="secondary" className="bg-black/80 hover:bg-gray-800" asChild>
-                          <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-4 h-4" />
-                          </a>
-                        </Button>
-                      </motion.div>
-                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <Button size="sm" variant="secondary" className="bg-black/80 hover:bg-gray-800" asChild>
-                          <a href={project.live} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </Button>
-                      </motion.div>
-                    </motion.div>
                   </div>
-
                   <CardHeader className="relative z-10">
                     <CardTitle className="text-white group-hover:text-gray-300 transition-colors duration-300">
                       {project.title}
@@ -1286,6 +1278,32 @@ export default function Portfolio() {
                         </motion.div>
                       ))}
                     </div>
+
+                    {/* GitHub and Live Demo Links */}
+                    <div className="flex items-center mt-4 space-x-4">
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Github className="w-5 h-5" />
+                        <span className="sr-only">GitHub Repository</span>
+                      </motion.a>
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors"
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                        <span className="sr-only">Live Demo</span>
+                      </motion.a>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -1295,7 +1313,7 @@ export default function Portfolio() {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="py-20">
+      <section id="certifications" className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -1319,7 +1337,7 @@ export default function Portfolio() {
 
           {/* Certifications Grid */}
           <AnimatePresence>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={cert.title}
@@ -1329,14 +1347,14 @@ export default function Portfolio() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   layout
                 >
-                  <Card className="bg-black/50 backdrop-blur-sm border-gray-700 text-center hover:bg-black/70 transition-all duration-300 group relative overflow-hidden">
+                  <Card className="bg-black/50 backdrop-blur-sm border-gray-700 text-center hover:bg-black/70 transition-all duration-300 group relative overflow-hidden h-full">
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       initial={false}
                     />
 
                     {/* Add Image Preview */}
-                    <div className="relative h-40 overflow-hidden">
+                    <div className="relative h-36 sm:h-40 overflow-hidden">
                       <Image
                         src={cert.image || "/placeholder.svg"}
                         alt={cert.title}
@@ -1472,31 +1490,39 @@ export default function Portfolio() {
               <div className="pt-6 md:pt-8">
                 <h4 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">Follow Me</h4>
                 <div className="flex space-x-3 md:space-x-4">
-                  {[
-                    { icon: Github, href: "#", label: "GitHub", color: "hover:from-gray-600 hover:to-gray-500" },
-                    { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:from-blue-600 hover:to-blue-500" },
-                    {
-                      icon: Instagram,
-                      href: "#",
-                      label: "Instagram",
-                      color: "hover:from-pink-600 hover:to-purple-500",
-                    },
-                  ].map((social, index) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      className={`p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-white ${social.color} transition-all duration-300 border border-gray-700`}
-                      whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <social.icon className="w-4 h-4 md:w-5 md:h-5" />
-                      <span className="sr-only">{social.label}</span>
-                    </motion.a>
-                  ))}
+                  <motion.a
+                    href="https://github.com/amithaaji"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-white transition-colors duration-300 border border-gray-700"
+                    whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Github className="w-5 h-5" />
+                    <span className="sr-only">GitHub</span>
+                  </motion.a>
+                  <motion.a
+                    href="https://www.linkedin.com/in/amitha-aji-0850972bb"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-blue-400 transition-colors duration-300 border border-gray-700"
+                    whileHover={{ scale: 1.1, y: -2, rotate: -5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Linkedin className="w-5 h-5" />
+                    <span className="sr-only">LinkedIn</span>
+                  </motion.a>
+                  <motion.a
+                    href="https://www.instagram.com/a.mith.a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 md:p-3 bg-gradient-to-r from-black/50 to-gray-800/50 rounded-lg text-gray-400 hover:text-pink-400 transition-colors duration-300 border border-gray-700"
+                    whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Instagram className="w-5 h-5" />
+                    <span className="sr-only">Instagram</span>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
