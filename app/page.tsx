@@ -254,6 +254,11 @@ function ContactForm() {
   )
 }
 
+function seededRandom(seed: number) {
+  const x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+}
+
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -407,27 +412,32 @@ export default function Portfolio() {
         />
 
         {/* Floating Particles */}
-        {Array.from({ length: 50 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-gray-400/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {Array.from({ length: 50 }).map((_, i) => {
+          const left = seededRandom(i) * 100;
+          const top = seededRandom(i + 50) * 100;
+          
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-gray-400/30 rounded-full"
+              style={{
+                left: `${left}%`,
+                top: `${top}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 3 + seededRandom(i + 100) * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: seededRandom(i + 150) * 2,
+              }}
+            />
+          );
+        })}
 
         {/* Mouse Follower */}
         <motion.div
