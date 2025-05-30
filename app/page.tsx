@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -42,6 +42,7 @@ function ContactForm() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSuccess, setIsSuccess] = useState(false)
   const { toast } = useToast()
+  const formRef = useRef<HTMLFormElement>(null) // Add this line
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -53,28 +54,29 @@ function ContactForm() {
 
     try {
       const result = await submitContactForm(formData)
-      // Defensive: check for result and result.success
-      if (result && result.success) {
+
+      if (result.success) {
         setIsSuccess(true)
         toast({
           title: "Message sent successfully!",
           description: result.message,
         })
-        event.currentTarget.reset()
+        // Use formRef to reset
+        formRef.current?.reset()
       } else {
-        if (result && result.errors) {
+        if (result.errors) {
           setErrors(result.errors)
         }
         toast({
           title: "Error sending message",
-          description: result?.message || "Failed to send message.",
+          description: result.message,
           variant: "destructive",
         })
       }
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: "Error",
-        description: error?.message || "An unexpected error occurred. Please try again.",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       })
     } finally {
@@ -121,7 +123,7 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           <Input

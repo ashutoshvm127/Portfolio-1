@@ -43,51 +43,70 @@ export async function submitContactForm(formData: FormData) {
 
     // Try to send email if Resend API key is available
     const resendApiKey = process.env.RESEND_API_KEY
-    if (resendApiKey) {
-      try {
-        const { Resend } = await import("resend")
-        const resend = new Resend(resendApiKey)
-
-        await resend.emails.send({
-          from: "noreply@amithaaji.live", // Use your actual verified domain
-          to: "amithaaji24@gmail.com", // ✅ Your email for notifications
-          subject: `Portfolio Contact: ${validatedData.subject}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">
-                New Contact Form Submission
-              </h2>
-              <div style="margin: 20px 0;">
-                <p><strong>Name:</strong> ${validatedData.firstName} ${validatedData.lastName}</p>
-                <p><strong>Email:</strong> ${validatedData.email}</p>
-                <p><strong>Subject:</strong> ${validatedData.subject}</p>
-              </div>
-              <div style="margin: 20px 0;">
-                <p><strong>Message:</strong></p>
-                <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 10px;">
-                  ${validatedData.message.replace(/\n/g, "<br>")}
-                </div>
-              </div>
-              <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
-              <p style="color: #666; font-size: 12px;">
-                This message was sent from your portfolio contact form.
-              </p>
-            </div>
-          `,
-          replyTo: validatedData.email,
-        })
-        console.log("✅ Email sent successfully via Resend")
-      } catch (emailError) {
-        console.error("❌ Failed to send email via Resend:", emailError)
-        // Continue with success even if email fails
+    if (!resendApiKey || !resendApiKey.startsWith('re_')) {
+      console.error("⚠️ Invalid Resend API key format")
+      return {
+        success: false,
+        message: "Server configuration error. Please contact the administrator.",
       }
-    } else {
-      console.log("⚠️ Resend API key not found - email not sent (this is normal in development)")
     }
 
+    try {
+      const { Resend } = await import("resend")
+      const resend = new Resend(resendApiKey)
+
+      console.log("📧 Attempting to send email via Resend...")
+
+      const response = await resend.emails.send({
+        from: "portfolio@amithaaji.live",
+        to: ["amithaaji24@gmail.com"], // Update to match the verified email
+        subject: `New Contact Form Message: ${validatedData.subject}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+              New Contact Form Submission
+            </h2>
+            <div style="margin: 20px 0;">
+              <p><strong>From:</strong> ${validatedData.firstName} ${validatedData.lastName} (${validatedData.email})</p>
+              <p><strong>Subject:</strong> ${validatedData.subject}</p>
+              <p><strong>Timestamp:</strong> ${new Date().toLocaleString()}</p>
+            </div>
+            <div style="margin: 20px 0; background: #f5f5f5; padding: 20px; border-radius: 5px;">
+              <p><strong>Message:</strong></p>
+              <div style="white-space: pre-wrap;">${validatedData.message}</div>
+            </div>
+          </div>
+        `,
+        replyTo: validatedData.email, // Use reply_to instead of replyTo
+      })
+
+      console.log("📨 Raw Resend API response:", JSON.stringify(response, null, 2))
+
+      // Correct response check for Resend API
+      if (response?.error) {
+        throw new Error(`Resend API error: ${response.error.message}`)
+      }
+
+      console.log("✅ Email sent successfully with ID:", response?.data?.id ?? 'unknown')
+
+    } catch (emailError: any) {
+      console.error("❌ Email sending failed:", {
+        error: emailError.message,
+        code: emailError?.code,
+        name: emailError?.name,
+        response: JSON.stringify(emailError?.response || {}),
+      })
+      
+      return {
+        success: false,
+        message: "Failed to send email. Please try again or contact directly at amithaaji24@gmail.com",
+      }
+    }
+
+    // Return success only if everything worked
     return {
       success: true,
-      message: "Thank you for your message! I'll get back to you within 24 hours.",
+      message: "Thank you! Your message has been sent successfully.",
     }
   } catch (error) {
     console.error("Contact form submission error:", error)
