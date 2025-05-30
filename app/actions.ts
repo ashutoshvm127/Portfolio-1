@@ -49,7 +49,7 @@ export async function submitContactForm(formData: FormData) {
         const resend = new Resend(resendApiKey)
 
         await resend.emails.send({
-          from: "noreply@yourdomain.com", // Use your actual verified domain
+          from: "noreply@amithaaji.live", // Use your actual verified domain
           to: "amithaaji24@gmail.com", // ✅ Your email for notifications
           subject: `Portfolio Contact: ${validatedData.subject}`,
           html: `

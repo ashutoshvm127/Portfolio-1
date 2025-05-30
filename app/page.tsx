@@ -53,29 +53,28 @@ function ContactForm() {
 
     try {
       const result = await submitContactForm(formData)
-
-      if (result.success) {
+      // Defensive: check for result and result.success
+      if (result && result.success) {
         setIsSuccess(true)
         toast({
           title: "Message sent successfully!",
           description: result.message,
         })
-        // Reset form
         event.currentTarget.reset()
       } else {
-        if (result.errors) {
+        if (result && result.errors) {
           setErrors(result.errors)
         }
         toast({
           title: "Error sending message",
-          description: result.message,
+          description: result?.message || "Failed to send message.",
           variant: "destructive",
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "An unexpected error occurred. Please try again.",
+        description: error?.message || "An unexpected error occurred. Please try again.",
         variant: "destructive",
       })
     } finally {
