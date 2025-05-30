@@ -7,8 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 import { Search, Download, Trash2, Mail, Calendar, User, MessageSquare, BarChart3, LogOut } from "lucide-react"
-import { supabaseAdmin } from "@/utils/supabase-admin"
-import { supabase } from "@/utils/supabase"
+import { getSubmissions, deleteSubmission } from "./actions"
 import type { ContactSubmission } from "@/types/database"
 import { checkAdminAuth, logoutAdmin } from "./auth"
 
@@ -43,24 +42,7 @@ export default function AdminPage() {
 
   const loadData = async () => {
     try {
-      const { data: submissionsData, error } = await supabaseAdmin
-        .from('contact_submissions')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (error) {
-        console.error('Supabase error:', error)
-        throw error
-      }
-
-      if (!submissionsData) {
-        console.log('No data returned from Supabase')
-        setSubmissions([])
-        setFilteredSubmissions([])
-        setStats({ total: 0, thisMonth: 0, thisWeek: 0, today: 0 })
-        return
-      }
-
+      const submissionsData = await getSubmissions()
       console.log('Fetched submissions:', submissionsData.length)
 
       const statsData = {
@@ -90,16 +72,7 @@ export default function AdminPage() {
     if (!confirm("Are you sure you want to delete this submission?")) return
 
     try {
-      const { error } = await supabaseAdmin
-        .from('contact_submissions')
-        .delete()
-        .eq('id', id)
-
-      if (error) {
-        console.error('Delete error:', error)
-        return
-      }
-
+      await deleteSubmission(id)
       await loadData()
     } catch (error) {
       console.error("Delete error:", error)
@@ -108,20 +81,15 @@ export default function AdminPage() {
 
   const handleExport = async () => {
     try {
-      const { data, error } = await supabaseAdmin
-        .from('contact_submissions')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (error) throw error
-
+      const data = await getSubmissions()
+      
       const csvData = [
         ['ID', 'Name', 'Email', 'Message', 'Created At'].join(','),
         ...data.map(item => [
           item.id,
           item.name,
           item.email,
-          `"${item.message.replace(/"/g, '""')}"`,
+          `"${(item.message || '').replace(/"/g, '""')}"`,
           item.created_at
         ].join(','))
       ].join('\n')
