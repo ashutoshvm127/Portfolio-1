@@ -1,5 +1,4 @@
 "use server"
-
 import { z } from "zod"
 import { supabase } from "@/utils/supabase"
 import type { ContactSubmissionInsert } from "@/types/database"
@@ -41,7 +40,7 @@ export async function submitContactForm(formData: FormData) {
 
     if (dbError) {
       console.error('Supabase error:', dbError)
-      throw new Error('Failed to store contact submission')
+      throw new Error(`Failed to store contact submission: ${dbError.message}`)
     }
 
     // Check Resend API key
