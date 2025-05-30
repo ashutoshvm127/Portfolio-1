@@ -1,20 +1,23 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { cookies } from "next/headers"
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-export async function middleware(request: NextRequest) {
-  // Check if user is trying to access admin routes (except login)
-  if (request.nextUrl.pathname.startsWith("/admin") && !request.nextUrl.pathname.startsWith("/admin/login")) {
-    const cookieStore = await cookies()
-    const authCookie = cookieStore.get("admin-auth")
+export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const authHeader = request.headers.get('authorization')
+    const expectedAuth = `Basic ${Buffer.from(`admin:${process.env.ADMIN_PASSWORD}`).toString('base64')}`
 
-    if (!authCookie || authCookie.value !== "authenticated") {
-      return NextResponse.redirect(new URL("/admin/login", request.url))
+    if (authHeader !== expectedAuth) {
+      return new NextResponse('Unauthorized', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Admin Area"',
+        },
+      })
     }
   }
-
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: '/admin/:path*',
 }
