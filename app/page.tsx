@@ -35,6 +35,7 @@ import {
 } from "lucide-react"
 import { submitContactForm } from "./actions"
 import { useToast } from "@/hooks/use-toast"
+import Image from "next/image"
 
 function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -316,18 +317,81 @@ export default function Portfolio() {
       issuer: "Amazon Web Services",
       date: "2024",
       icon: <Award className="w-6 h-6" />,
+      image: "/certificates/aws-cert.png",
+      pdf: "/certificates/aws-cert.pdf",
     },
     {
       title: "React Developer Certification",
       issuer: "Meta",
       date: "2023",
       icon: <Code className="w-6 h-6" />,
+      image: "/certificates/react-cert.png",
+      pdf: "/certificates/react-cert.pdf",
     },
     {
       title: "Google UX Design Certificate",
       issuer: "Google",
       date: "2023",
       icon: <Palette className="w-6 h-6" />,
+      image: "/certificates/ux-cert.png",
+      pdf: "/certificates/ux-cert.pdf",
+    },
+    // Additional certificates will be hidden initially
+    {
+      title: "Advanced JavaScript",
+      issuer: "Udemy",
+      date: "2023",
+      icon: <Code className="w-6 h-6" />,
+      image: "/certificates/js-cert.png",
+      pdf: "/certificates/js-cert.pdf",
+    },
+    {
+      title: "Python Data Science",
+      issuer: "DataCamp",
+      date: "2023",
+      icon: <Code className="w-6 h-6" />,
+      image: "/certificates/python-cert.png",
+      pdf: "/certificates/python-cert.pdf",
+    },
+    {
+      title: "UI/UX Foundation",
+      issuer: "Coursera",
+      date: "2023",
+      icon: <Palette className="w-6 h-6" />,
+      image: "/certificates/uiux-cert.png",
+      pdf: "/certificates/uiux-cert.pdf",
+    },
+    {
+      title: "Cloud Architecture",
+      issuer: "Microsoft",
+      date: "2023",
+      icon: <Award className="w-6 h-6" />,
+      image: "/certificates/cloud-cert.png",
+      pdf: "/certificates/cloud-cert.pdf",
+    },
+    {
+      title: "Docker Mastery",
+      issuer: "Udemy",
+      date: "2023",
+      icon: <Code className="w-6 h-6" />,
+      image: "/certificates/docker-cert.png",
+      pdf: "/certificates/docker-cert.pdf",
+    },
+    {
+      title: "Data Analysis with Python",
+      issuer: "Coursera",
+      date: "2023",
+      icon: <Code className="w-6 h-6" />,
+      image: "/certificates/data-analysis-cert.png",
+      pdf: "/certificates/data-analysis-cert.pdf",
+    },
+    {
+      title: "Machine Learning A-Z",
+      issuer: "Udemy",
+      date: "2023",
+      icon: <Lightbulb className="w-6 h-6" />,
+      image: "/certificates/machine-learning-cert.png",
+      pdf: "/certificates/machine-learning-cert.pdf",
     },
   ]
 
@@ -975,7 +1039,7 @@ export default function Portfolio() {
               <motion.div
                 className="grid grid-cols-3 gap-6 py-8 border-t border-b border-gray-800"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
@@ -1253,57 +1317,84 @@ export default function Portfolio() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {certifications.map((cert, index) => (
-              <motion.div
-                key={cert.title}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-black/50 backdrop-blur-sm border-gray-700 text-center hover:bg-black/70 transition-all duration-300 group relative overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={false}
-                  />
-
-                  <CardHeader className="relative z-10">
+          {/* Certifications Grid */}
+          <AnimatePresence>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {certifications.map((cert, index) => (
+                <motion.div
+                  key={cert.title}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  layout
+                >
+                  <Card className="bg-black/50 backdrop-blur-sm border-gray-700 text-center hover:bg-black/70 transition-all duration-300 group relative overflow-hidden">
                     <motion.div
-                      className="mx-auto mb-4 p-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full w-fit group-hover:from-yellow-500/30 group-hover:to-orange-500/30 transition-all duration-300 border border-gray-700"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      {cert.icon}
-                    </motion.div>
-                    <CardTitle className="text-white group-hover:text-yellow-300 transition-colors duration-300">
-                      {cert.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-400">
-                      {cert.issuer} • {cert.date}
-                    </CardDescription>
-                  </CardHeader>
+                      className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      initial={false}
+                    />
 
-                  <CardContent className="relative z-10">
-                    <div className="flex justify-center space-x-1">
-                      {[...Array(5)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: i * 0.1 }}
-                          viewport={{ once: true }}
-                        >
-                          <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                        </motion.div>
-                      ))}
+                    {/* Add Image Preview */}
+                    <div className="relative h-40 overflow-hidden">
+                      <Image
+                        src={cert.image || "/placeholder.svg"}
+                        alt={cert.title}
+                        width={400}
+                        height={160}
+                        className="object-cover w-full h-full"
+                        priority={index < 3}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+
+                    <CardHeader className="relative z-10">
+                      <motion.div
+                        className="mx-auto -mt-8 mb-4 p-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full w-fit group-hover:from-yellow-500/30 group-hover:to-orange-500/30 transition-all duration-300 border border-gray-700"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        {cert.icon}
+                      </motion.div>
+                      <CardTitle className="text-white group-hover:text-yellow-300 transition-colors duration-300">
+                        {cert.title}
+                      </CardTitle>
+                      <CardDescription className="text-gray-400">
+                        {cert.issuer} • {cert.date}
+                      </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="relative z-10">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex justify-center space-x-1">
+                          {[...Array(5)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, scale: 0 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: i * 0.1 }}
+                              viewport={{ once: true }}
+                            >
+                              <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                            </motion.div>
+                          ))}
+                        </div>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => window.open(cert.pdf, '_blank')}
+                          className="mt-4 px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-lg text-white hover:from-yellow-500/30 hover:to-orange-500/30 transition-all duration-300 border border-gray-700"
+                        >
+                          <Download className="w-4 h-4 inline-block mr-2" />
+                          View Certificate
+                        </motion.button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </AnimatePresence>
         </div>
       </section>
 
@@ -1349,9 +1440,9 @@ export default function Portfolio() {
 
               <div className="space-y-4 md:space-y-6">
                 {[
-                  { icon: Mail, label: "Email", value: "amitha@example.com", href: "mailto:amitha@example.com" },
-                  { icon: Phone, label: "Phone", value: "+1 (555) 123-4567", href: "tel:+15551234567" },
-                  { icon: MapPin, label: "Location", value: "San Francisco, CA", href: "#" },
+                  { icon: Mail, label: "Email", value: "amithaaji24@gmail.com", href: "mailto:amithaaji24@gmail.com" },
+                  { icon: Phone, label: "Phone", value: "+91 9074675477", href: "tel:+91 9074675477" },
+                  { icon: MapPin, label: "Location", value: "Kuruppumpady, Kerala", href: "#" },
                 ].map((contact, index) => (
                   <motion.a
                     key={contact.label}
@@ -1425,7 +1516,7 @@ export default function Portfolio() {
                 <CardHeader className="pb-4 relative z-10">
                   <CardTitle className="text-white text-lg md:text-xl">Send a Message</CardTitle>
                   <CardDescription className="text-gray-400 text-sm md:text-base">
-                    Fill out the form below and I'll get back to you within 24 hours.
+                    Fill out the form below and I'll get back to you.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="relative z-10">
@@ -1448,7 +1539,7 @@ export default function Portfolio() {
             viewport={{ once: true }}
           >
             <motion.p className="text-gray-500" whileHover={{ scale: 1.02 }}>
-              © {new Date().getFullYear()} Amitha Aji. All rights reserved. Built with precision and passion.
+              © {new Date().getFullYear()} Amitha Aji. All rights reserved. 
             </motion.p>
 
             <motion.div
