@@ -397,12 +397,12 @@ export default function Portfolio() {
           animate={{
             x: [0, -100, 0],
             y: [0, 50, 0],
-            scale: [1.2, 1, 1.2],
+            scale: [1.2, 1, 1.2]
           }}
           transition={{
             duration: 25,
             repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
+            ease: "easeInOut"
           }}
         />
 
@@ -586,15 +586,15 @@ export default function Portfolio() {
                     <motion.span
                       className="bg-gradient-to-r from-gray-300 via-white to-gray-400 bg-clip-text text-transparent"
                       animate={{
-                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                        backgroundPositionX: ["0%", "100%", "0%"]
                       }}
                       transition={{
                         duration: 5,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "linear",
+                        repeat: Infinity,
+                        ease: "linear"
                       }}
                       style={{
-                        backgroundSize: "200% 200%",
+                        backgroundSize: "200% auto"
                       }}
                     >
                       Amitha Aji
@@ -723,7 +723,7 @@ export default function Portfolio() {
                               "linear-gradient(45deg, rgba(75, 85, 99, 0.1), rgba(55, 65, 81, 0.1))",
                               "linear-gradient(45deg, rgba(55, 65, 81, 0.1), rgba(31, 41, 55, 0.1))",
                               "linear-gradient(45deg, rgba(31, 41, 55, 0.1), rgba(75, 85, 99, 0.1))",
-                            ],
+                            ]
                           }}
                           transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                         />
@@ -799,18 +799,20 @@ export default function Portfolio() {
                       key={index}
                       className={`absolute ${item.position} w-12 h-12 bg-gradient-to-r from-gray-800/20 to-gray-700/20 backdrop-blur-sm rounded-xl border border-gray-600/50 flex items-center justify-center text-white`}
                       initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 2 + item.delay, type: "spring", stiffness: 200 }}
-                      whileHover={{ scale: 1.2, rotate: 10 }}
                       animate={{
+                        opacity: 1,
+                        scale: 1,
                         y: [0, -10, 0],
-                        rotate: [0, 5, 0],
+                        rotate: [0, 5, 0]
                       }}
+                      whileHover={{ scale: 1.2, rotate: 10 }}
                       transition={{
+                        delay: 2 + item.delay,
                         duration: 3,
-                        repeat: Number.POSITIVE_INFINITY,
+                        repeat: Infinity,
                         ease: "easeInOut",
-                        delay: item.delay,
+                        opacity: { delay: 2 + item.delay, duration: 0.3 },
+                        scale: { type: "spring", stiffness: 200 }
                       }}
                     >
                       <item.icon className="w-6 h-6" />
@@ -912,11 +914,11 @@ export default function Portfolio() {
                     animate={{
                       y: [0, -15, 0],
                       rotate: [0, 180, 360],
-                    }}
-                    transition={{
-                      duration: 4 + index,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "easeInOut",
+                      transition: {
+                        duration: 4 + index,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                      }
                     }}
                   >
                     <item.icon className="w-4 h-4 text-white" />
@@ -1409,7 +1411,6 @@ export default function Portfolio() {
               <Card className="bg-black/50 backdrop-blur-sm border-gray-700 relative overflow-hidden">
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-gray-800/5 to-gray-700/5 opacity-0 hover:opacity-100 transition-opacity duration-300"
-                  initial={false}
                 />
                 <CardHeader className="pb-4 relative z-10">
                   <CardTitle className="text-white text-lg md:text-xl">Send a Message</CardTitle>
@@ -1454,8 +1455,7 @@ export default function Portfolio() {
       {/* Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-600 to-white z-50"
-        style={{ scaleX: scrollYProgress }}
-        transformOrigin="0%"
+        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
       />
 
       {/* Scroll to Top Button */}
