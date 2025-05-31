@@ -4,6 +4,10 @@ import { supabaseAdmin } from "@/utils/supabase-admin"
 import type { ContactSubmission } from "@/types/database"
 
 export async function getSubmissions() {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase client not initialized')
+  }
+
   const { data, error } = await supabaseAdmin
     .from('contact_submissions')
     .select(`
@@ -28,6 +32,10 @@ export async function getSubmissions() {
 }
 
 export async function deleteSubmission(id: number) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase client not initialized')
+  }
+
   const { error } = await supabaseAdmin
     .from('contact_submissions')
     .delete()
