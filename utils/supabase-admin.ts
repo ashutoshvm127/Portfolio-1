@@ -1,20 +1,25 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/database'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY
+// Ensure these are available in production environment
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-console.log('Service Key available:', !!supabaseServiceKey) // Debug log
+if (!supabaseUrl) {
+  console.warn('Supabase URL not found, check your environment variables')
+}
 
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.error('Missing Supabase credentials:', { 
-    hasUrl: !!supabaseUrl, 
-    hasServiceKey: !!supabaseServiceKey 
-  })
-  throw new Error('Missing Supabase credentials')
+if (!supabaseServiceKey) {
+  console.warn('Supabase service key not found, falling back to anon key')
 }
 
 export const supabaseAdmin = createClient<Database>(
-  supabaseUrl,
-  supabaseServiceKey
+  supabaseUrl || '',
+  supabaseServiceKey || '',
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  }
 )
