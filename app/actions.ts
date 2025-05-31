@@ -55,7 +55,7 @@ export async function submitContactForm(formData: FormData) {
 
     const response = await resend.emails.send({
       from: process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL || "portfolio@amithaaji.live",
-      to: ["wbup2003@gmail.com"],
+      to: ["amithaaji24@gmail.com"],
       subject: `New Contact Form Message: ${validatedData.subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
